@@ -23,16 +23,14 @@ export const Route = createFileRoute("/product/$slug")({
       ],
     };
   },
-  loader: ({ params }) => {
-    const m = findModule(params.slug);
-    if (!m) throw notFound();
-    return { module: m };
-  },
   component: ModulePage,
+  notFoundComponent: () => <div className="p-24 text-center">Module not found.</div>,
 });
 
 function ModulePage() {
-  const { module: m } = Route.useLoaderData();
+  const { slug } = Route.useParams();
+  const m = findModule(slug);
+  if (!m) throw notFound();
 
   const Demo =
     m.slug === "today"
