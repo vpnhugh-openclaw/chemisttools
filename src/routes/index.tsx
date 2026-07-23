@@ -18,8 +18,8 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
       { name: "description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies." },
-      { property: "og:title", content: "Chemist Care Tools" },
-      { property: "og:description", content: "Operations, compliance, and knowledge for Australian community pharmacies." },
+      { property: "og:title", content: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
+      { property: "og:description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies." },
       {
         // JSON-LD Organization
         // Rendered via meta hack: we output as script below instead.

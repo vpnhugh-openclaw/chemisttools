@@ -73,20 +73,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "One staff portal and one action queue for tasks, orders, packs, compliance, and stock. Built by pharmacists who run their own.",
+          "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies.",
       },
       { property: "og:site_name", content: "Chemist Care Tools" },
       { property: "og:type", content: "website" },
       { property: "og:title", content: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
       {
         property: "og:description",
-        content: "Operations, compliance, and knowledge for Australian community pharmacies.",
+        content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies.",
       },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
+      { name: "twitter:description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/R6K3glyzDwgIwpIt8lj1BoPA0EM2/social-images/social-1784845977367-21f93649-074a-4469-bc6a-a1d05a6a0321.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/R6K3glyzDwgIwpIt8lj1BoPA0EM2/social-images/social-1784845977367-21f93649-074a-4469-bc6a-a1d05a6a0321.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
