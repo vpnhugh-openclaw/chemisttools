@@ -32,7 +32,7 @@ function getObserver(): IntersectionObserver {
 export function Reveal({ children, delay = 0, as = "div", className = "" }: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
   const [play, setPlay] = useState(false);
-  const Comp = as as keyof React.JSX.IntrinsicElements;
+  const Comp = as as unknown as "div";
 
   useEffect(() => {
     if (typeof window === "undefined") return;

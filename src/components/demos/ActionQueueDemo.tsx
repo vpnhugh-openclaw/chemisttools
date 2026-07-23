@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { CheckCircle2, Package, Snowflake, Bell } from "lucide-react";
-import { BrowserFrame, PortalShell } from "./BrowserFrame";
+import { BrowserFrame, PortalShell } from "../BrowserFrame";
 
 interface QueueItem {
   id: string;
