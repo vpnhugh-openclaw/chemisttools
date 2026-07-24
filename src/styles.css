@@ -69,33 +69,38 @@
   --ring: var(--navy-500);
 }
 
-html {
-  background: var(--paper);
-  color: var(--navy);
-  font-family: var(--font-sans);
-  font-feature-settings: "cv02", "cv11";
-  -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
-}
+/* Base element styles live in the base layer so Tailwind utilities
+   (e.g. text-white on dark sections) can override them. Unlayered rules
+   would always beat layered utilities regardless of specificity. */
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--navy);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv11";
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+  }
 
-body {
-  background: var(--paper);
-  color: var(--navy);
-  font-family: var(--font-sans);
-  font-size: 17px;
-  line-height: 1.65;
-}
+  body {
+    background: var(--paper);
+    color: var(--navy);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.65;
+  }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  color: var(--navy);
-  letter-spacing: -0.01em;
-  line-height: 1.1;
-}
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+  }
 
-::selection {
-  background: var(--navy);
-  color: var(--white);
+  ::selection {
+    background: var(--navy);
+    color: var(--white);
+  }
 }
 
 /* Motion system --------------------------------------------------------- */
@@ -375,6 +380,14 @@ button:hover > .cta-arrow,
 }
 
 .prose-measure { max-width: 68ch; }
+
+/* Soft radial washes to give large light sections gentle depth */
+
+.section-wash {
+  background:
+    radial-gradient(55% 40% at 88% 0%, rgba(192, 57, 43, 0.045), transparent 70%),
+    radial-gradient(50% 35% at 8% 100%, rgba(16, 24, 63, 0.05), transparent 70%);
+}
 
 *:focus-visible {
   outline: 2px solid var(--navy);

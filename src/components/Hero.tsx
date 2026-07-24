@@ -40,6 +40,7 @@ export function Hero() {
   const [reduced, setReduced] = useState(false);
   const [paused, setPaused] = useState(false);
   const [fading, setFading] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -112,18 +113,41 @@ export function Hero() {
       className="relative isolate overflow-hidden text-white grain"
       style={{ minHeight: "100svh", background: "var(--navy)", display: "flex", flexDirection: "column" }}
     >
+      {/* Designed fallback: shows while the video loads, if it fails,
+          and for reduced-motion visitors. Never a flat colour. */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(90% 80% at 70% 15%, #1c2657 0%, var(--navy) 55%, var(--navy-900) 100%)",
+        }}
+      />
+      <div
+        className="aurora-blob z-0"
+        style={{ width: 640, height: 640, top: "-15%", right: "-8%", background: "rgba(192,57,43,0.20)" }}
+      />
+      <div
+        className="aurora-blob z-0"
+        style={{ width: 560, height: 560, bottom: "-20%", left: "-10%", background: "rgba(90,98,133,0.30)", animationDelay: "-8s" }}
+      />
+
       {!reduced && (
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover z-0"
-          style={{ transform: "scale(1.08)", willChange: "transform" }}
+          style={{
+            transform: "scale(1.08)",
+            willChange: "transform",
+            opacity: videoReady ? 1 : 0,
+            transition: "opacity 1.2s ease-out",
+          }}
           src={siteConfig.hero.videoUrl}
-          poster={siteConfig.hero.posterUrl}
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
+          onCanPlay={() => setVideoReady(true)}
         />
       )}
 

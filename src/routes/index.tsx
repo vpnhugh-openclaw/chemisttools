@@ -143,7 +143,8 @@ function Home() {
       </section>
 
       {/* Module groups */}
-      <section id="module-groups" className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-12 py-24">
+      <section id="module-groups" className="section-wash">
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-12 py-24">
         <Reveal>
           <div className="eyebrow mb-3">The modules</div>
         </Reveal>
@@ -186,6 +187,7 @@ function Home() {
               </div>
             </div>
           ))}
+        </div>
         </div>
       </section>
 
