@@ -181,8 +181,9 @@ export function Hero() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           onCanPlay={() => setVideoReady(true)}
+          onLoadedData={() => setVideoReady(true)}
         />
       )}
 
