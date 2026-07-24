@@ -154,12 +154,26 @@ function Home() {
           </h2>
         </Reveal>
         <div className="mt-14 space-y-16">
-          {MODULE_GROUPS.map((g) => (
+          {MODULE_GROUPS.map((g, gi) => (
             <div key={g.name}>
               <div className="flex flex-wrap items-baseline justify-between gap-3 mb-6">
-                <div>
-                  <div className="eyebrow mb-1">{g.name}</div>
-                  <h3 style={{ fontSize: 24 }}>{g.description}</h3>
+                <div className="flex items-baseline gap-4">
+                  <span
+                    aria-hidden
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: 40,
+                      lineHeight: 1,
+                      color: "var(--crimson)",
+                      opacity: 0.35,
+                    }}
+                  >
+                    {String(gi + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <div className="eyebrow mb-1">{g.name}</div>
+                    <h3 style={{ fontSize: 24 }}>{g.description}</h3>
+                  </div>
                 </div>
               </div>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

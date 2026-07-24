@@ -385,8 +385,8 @@ button:hover > .cta-arrow,
 
 .section-wash {
   background:
-    radial-gradient(55% 40% at 88% 0%, rgba(192, 57, 43, 0.045), transparent 70%),
-    radial-gradient(50% 35% at 8% 100%, rgba(16, 24, 63, 0.05), transparent 70%);
+    radial-gradient(70% 50% at 92% 0%, rgba(192, 57, 43, 0.025), transparent 75%),
+    radial-gradient(60% 40% at 5% 100%, rgba(16, 24, 63, 0.03), transparent 75%);
 }
 
 *:focus-visible {
