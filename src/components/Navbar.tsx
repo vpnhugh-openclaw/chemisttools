@@ -77,17 +77,6 @@ export function Navbar({ overHero = false }: NavbarProps) {
           </div>
 
           <div className="hidden lg:flex items-center gap-2">
-            <a
-              href={siteConfig.brand.signInUrl}
-              className={
-                isDark
-                  ? "liquid-glass rounded-full px-4 py-2 text-sm animate-blur-fade-up"
-                  : "rounded-full px-4 py-2 text-sm border border-[var(--navy-100)] text-[var(--navy)] hover:bg-[var(--navy-50)] transition-colors animate-blur-fade-up"
-              }
-              style={{ animationDelay: "350ms" }}
-            >
-              Sign in
-            </a>
             <Link
               to="/book-walkthrough"
               className={
@@ -164,12 +153,7 @@ export function Navbar({ overHero = false }: NavbarProps) {
             </Link>
           ))}
           <div className="mt-3 pt-4 border-t border-white/10 flex flex-col gap-2 sm:hidden">
-            <a
-              href={siteConfig.brand.signInUrl}
-              className="py-3 px-3 rounded-md text-white/90 border border-white/15 text-center"
-            >
-              Sign in
-            </a>
+
             <Link
               to="/book-walkthrough"
               className="py-3 px-3 rounded-md text-white text-center font-semibold"
