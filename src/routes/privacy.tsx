@@ -19,7 +19,7 @@ export const Route = createFileRoute("/privacy")({
           Chemist Care Tools collects and processes information under the Australian Privacy Principles. We store operational and business data submitted by pharmacies using our platform. Personal information collected via this website (name, email, phone, pharmacy details) is used to respond to enquiries and provide the platform.
         </p>
         <p className="mt-4 text-[var(--navy-700)]">
-          Data is stored in Australia. It is never shared between pharmacies and never used to train shared AI models. Marketing sender is kept separate from operational notifications. Contact <a href="mailto:support@chemistcare.com.au" className="underline">support@chemistcare.com.au</a> to request access, correction, or deletion of your information.
+          Data is stored in Australia. It is never shared between pharmacies and never used to train shared AI models. Marketing sender is kept separate from operational notifications. Contact <a href="mailto:hugh@burkeroadpharmacy.com.au" className="underline">hugh@burkeroadpharmacy.com.au</a> to request access, correction, or deletion of your information.
         </p>
       </main>
       <Footer />

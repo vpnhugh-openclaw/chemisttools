@@ -43,6 +43,12 @@ export function Footer() {
                   {siteConfig.brand.contactEmail}
                 </a>
               </li>
+              <li>
+                <a href={`tel:${siteConfig.brand.phone.replace(/\s/g, "")}`} className="hover:text-white transition-colors">
+                  {siteConfig.brand.phone}
+                </a>
+              </li>
+              <li>{siteConfig.brand.address}</li>
               <li>{siteConfig.brand.location}</li>
               <li>{siteConfig.brand.abn}</li>
             </ul>

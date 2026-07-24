@@ -11,9 +11,9 @@ export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Chemist Care Tools" },
-      { name: "description", content: "Built by a pharmacist-owner running two Melbourne pharmacies. The operator story, honest roadmap, and reference sites." },
+      { name: "description", content: "Developed by real community pharmacists who run their own stores. The operator story, honest roadmap, and reference sites." },
       { property: "og:title", content: "About — Chemist Care Tools" },
-      { property: "og:description", content: "Built by a pharmacist-owner running two working Melbourne pharmacies." },
+      { property: "og:description", content: "Developed by real community pharmacists who run their own stores." },
     ],
   }),
   component: About,
@@ -30,12 +30,12 @@ function About() {
           <Reveal><div className="eyebrow mb-3">About</div></Reveal>
           <Reveal delay={80}>
             <h1 style={{ fontSize: "clamp(32px, 5vw, 56px)", maxWidth: "18ch" }}>
-              Built by a pharmacist-owner. Used by his own stores every day.
+              Built by pharmacists. Used in our own stores every day.
             </h1>
           </Reveal>
           <Reveal delay={160}>
             <p className="mt-5 text-lg text-[var(--navy-700)] prose-measure">
-              Chemist Care Tools was born from running the stores, not from a slide deck. A pharmacist-owner runs two Melbourne pharmacies and a portfolio of pharmacy data tools. What did not exist as a product, we built. What worked, we kept.
+              Chemist Care Tools was born on the dispensary floor, not in a slide deck. We are community pharmacists who run our own stores and a portfolio of pharmacy data tools. What did not exist as a product, we built for ourselves. What worked, we kept.
             </p>
           </Reveal>
         </section>

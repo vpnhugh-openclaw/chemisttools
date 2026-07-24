@@ -253,7 +253,7 @@ function baseLead(s: State, completed: boolean, rec: Recommendation): LeadPayloa
 }
 
 interface Recommendation {
-  plan: "Core" | "Governance";
+  plan: "Core" | "Business Optimiser";
   addons: string[];
   price: number;
   score: number;
@@ -264,14 +264,14 @@ function computeRecommendation(s: State): Recommendation {
   const procScore = 5 - (s.procedureConfidence || 3);
   const knowledgeScore = { "Very little": 0, "Some": 1, "A lot": 2, "Most of it": 3 }[s.knowledgeDependency || "Some"] ?? 1;
   const score = interruptScore + procScore + knowledgeScore;
-  const plan: "Core" | "Governance" = score >= 4 ? "Governance" : "Core";
+  const plan: "Core" | "Business Optimiser" = score >= 4 ? "Business Optimiser" : "Core";
 
   const addons: string[] = ["pbs-intelligence"];
   if (s.daa && !addons.includes("daa-planner")) addons.push("daa-planner");
   if (s.multi) addons.push("connected-stores");
   if (s.compounding) addons.push("compounding");
 
-  const planPrice = plan === "Governance" ? 199 : 99;
+  const planPrice = plan === "Business Optimiser" ? 199 : 99;
   const addonPrice = addons.reduce((sum, id) => {
     const a = siteConfig.pricing.addons.find((x) => x.id === id);
     return sum + (a?.price ?? 0);
@@ -495,7 +495,7 @@ function Step7({ s, rec }: { s: State; rec: Recommendation }) {
           </div>
         </div>
         <ul className="text-sm text-[var(--navy-700)] space-y-1">
-          <li className="flex gap-2"><Check size={16} strokeWidth={1.5} color="var(--navy)" /> {rec.plan === "Governance" ? "Everything in Core plus Compliance & QSPP readiness" : "The run-the-day set: Today, Operations, Knowledge & Ask, Orders, DAA, Stock and more"}</li>
+          <li className="flex gap-2"><Check size={16} strokeWidth={1.5} color="var(--navy)" /> {rec.plan === "Business Optimiser" ? "Everything in Core plus Compliance & QSPP readiness" : "The run-the-day set: Today, Operations, Knowledge & Ask, Orders, DAA, Stock and more"}</li>
           {recModuleNames.map((name) => (
             <li key={name} className="flex gap-2"><Check size={16} strokeWidth={1.5} color="var(--navy)" /> {name}</li>
           ))}

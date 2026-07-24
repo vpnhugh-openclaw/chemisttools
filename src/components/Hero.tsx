@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/siteConfig";
 
 const SCENES = [
   {
-    headline: "Run every pharmacy like your best pharmacy.",
+    headline: "Run your pharmacy like the best in the business.",
     subline:
       "One staff portal and one action queue for tasks, orders, packs, compliance, and stock. Built by pharmacists who run their own.",
   },
@@ -14,7 +14,7 @@ const SCENES = [
     subline: "Every module feeds one queue. Staff open one screen and start working.",
   },
   {
-    headline: "Ready for QSPP before October.",
+    headline: "Ready for QSPP October 2026.",
     subline: "One register, one audit calendar, one readiness view for the new standard.",
   },
 ];
@@ -173,8 +173,8 @@ export function Hero() {
         <div className="flex flex-col md:flex-row items-start md:items-end gap-8">
           <div className={`flex-1 min-w-0 transition-opacity duration-500 ${fading ? "opacity-0" : "opacity-100"}`}>
             <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6 animate-blur-fade-up" style={{ animationDelay: "300ms" }}>
-              <MetaChip icon={Building2} label="Proven in 2 working pharmacies" />
-              <MetaChip icon={MapPin} label="Melbourne, Australia" />
+              <MetaChip icon={Building2} label="Developed by real community pharmacists" />
+              <MetaChip icon={MapPin} label="Sydney and Melbourne" />
               <MetaChip icon={Shield} label="Data hosted in Australia" />
             </div>
 

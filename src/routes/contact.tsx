@@ -60,7 +60,13 @@ function Page() {
           </Reveal>
           <Reveal delay={160}>
             <p className="mt-5 text-lg text-[var(--navy-700)] prose-measure">
-              Email <a href={`mailto:${siteConfig.brand.contactEmail}`} className="underline">{siteConfig.brand.contactEmail}</a> or send us a message. We reply within one business day.
+              Email <a href={`mailto:${siteConfig.brand.contactEmail}`} className="underline">{siteConfig.brand.contactEmail}</a>, call{" "}
+              <a href={`tel:${siteConfig.brand.phone.replace(/\s/g, "")}`} className="underline">{siteConfig.brand.phone}</a>, or send us a message. We reply within one business day.
+            </p>
+          </Reveal>
+          <Reveal delay={240}>
+            <p className="mt-3 text-sm text-[var(--navy-500)]">
+              {siteConfig.brand.address}
             </p>
           </Reveal>
         </section>

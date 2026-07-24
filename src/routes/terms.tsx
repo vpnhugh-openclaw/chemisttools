@@ -22,7 +22,7 @@ export const Route = createFileRoute("/terms")({
           Chemist Care Tools supports pharmacist judgement. It does not replace it. AI answers are generated from your pharmacy's own documents and should be verified before acting.
         </p>
         <p className="mt-4 text-[var(--navy-700)]">
-          For the full service agreement, contact <a href="mailto:support@chemistcare.com.au" className="underline">support@chemistcare.com.au</a>.
+          For the full service agreement, contact <a href="mailto:hugh@burkeroadpharmacy.com.au" className="underline">hugh@burkeroadpharmacy.com.au</a>.
         </p>
       </main>
       <Footer />

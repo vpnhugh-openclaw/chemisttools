@@ -25,10 +25,10 @@ function spotlight(e: React.MouseEvent<HTMLElement>) {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
-      { name: "description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies." },
-      { property: "og:title", content: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
-      { property: "og:description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies." },
+      { title: "Chemist Care Tools — Run your pharmacy like the best in the business" },
+      { name: "description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Developed by real community pharmacists in Sydney and Melbourne." },
+      { property: "og:title", content: "Chemist Care Tools — Run your pharmacy like the best in the business" },
+      { property: "og:description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Developed by real community pharmacists in Sydney and Melbourne." },
       {
         // JSON-LD Organization
         // Rendered via meta hack: we output as script below instead.
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/")({
           name: "Chemist Care Tools",
           url: `https://${siteConfig.brand.domain}`,
           areaServed: "AU",
-          slogan: "Run every pharmacy like your best pharmacy.",
+          slogan: "Run your pharmacy like the best in the business.",
           email: siteConfig.brand.contactEmail,
         }),
       },
@@ -248,7 +248,7 @@ function Home() {
                 <p>Most pharmacies will re-paper their quality systems in spreadsheets and folders.</p>
               </Reveal>
               <Reveal delay={320}>
-                <p>Governance replaces that with a live register, a scheduled audit programme, credential tracking, and a readiness view mapped to the four domains of the standard.</p>
+                <p>Business Optimiser replaces that with a live register, a scheduled audit programme, credential tracking, and a readiness view mapped to the four domains of the standard.</p>
               </Reveal>
             </div>
           </div>
@@ -263,7 +263,7 @@ function Home() {
         <Reveal><div className="eyebrow mb-3">Reference pharmacies</div></Reveal>
         <Reveal delay={80}>
           <h2 style={{ fontSize: "clamp(28px, 3.6vw, 40px)" }} className="max-w-3xl">
-            Built and used daily across two working Melbourne pharmacies.
+            Built and used daily in our own working pharmacies.
           </h2>
         </Reveal>
         <div className="grid md:grid-cols-2 gap-5 mt-10">
@@ -339,17 +339,17 @@ function Home() {
         <Reveal><div className="eyebrow mb-3">Pricing</div></Reveal>
         <Reveal delay={80}>
           <h2 style={{ fontSize: "clamp(28px, 3.6vw, 40px)" }} className="max-w-3xl">
-            Two plans. Add-ons for the workflows unique to you.
+            Three plans. Add-ons for the workflows unique to you.
           </h2>
         </Reveal>
-        <div className="grid md:grid-cols-2 gap-5 mt-10">
+        <div className="grid md:grid-cols-3 gap-5 mt-10">
           {siteConfig.pricing.plans.map((p, i) => {
-            const featured = p.id === "governance";
+            const featured = p.id === "business-optimiser";
             return (
               <Reveal key={p.id} delay={i * 80}>
                 <div
                   onMouseMove={spotlight}
-                  className="card-surface card-lift p-6 md:p-8 h-full relative overflow-hidden"
+                  className="card-surface card-lift p-6 h-full relative overflow-hidden"
                   style={featured ? { border: "1.5px solid var(--crimson)", boxShadow: "0 2px 4px rgba(192,57,43,0.06), 0 16px 40px rgba(192,57,43,0.10)" } : undefined}
                 >
                   {featured && (
@@ -360,12 +360,10 @@ function Home() {
                       Recommended
                     </div>
                   )}
-                  <div className="flex items-baseline justify-between mb-1 gap-3">
-                    <h3 style={{ fontSize: 26 }}>{p.name}</h3>
-                    <div>
-                      <span style={{ fontFamily: "var(--font-serif)", fontSize: 34, color: "var(--navy)" }}>${p.price}</span>
-                      <span className="text-sm text-[var(--navy-500)]"> /store /month</span>
-                    </div>
+                  <h3 style={{ fontSize: 24 }}>{p.name}</h3>
+                  <div className="mt-1 mb-2">
+                    <span style={{ fontFamily: "var(--font-serif)", fontSize: 34, color: "var(--navy)" }}>${p.price}</span>
+                    <span className="text-sm text-[var(--navy-500)]"> /store /month</span>
                   </div>
                   <p className="text-sm text-[var(--navy-700)]">{p.tagline}</p>
                   {featured && (
@@ -373,7 +371,7 @@ function Home() {
                       QSPP lands 1 October 2026
                     </div>
                   )}
-                  <Link to="/pricing" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--navy)]">
+                  <Link to="/pricing" className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--navy)]">
                     See what's included <ArrowRight size={16} strokeWidth={1.5} className="cta-arrow" />
                   </Link>
                 </div>
@@ -414,7 +412,7 @@ function Home() {
       </section>
 
       <CTABand
-        heading="See what needs attention before anyone asks."
+        heading="What needs attention right now?"
         sub="Book a walkthrough. We'll learn how your pharmacy runs, show the modules that fit, and tell you honestly if we're not the right tool."
       />
       <Footer />
@@ -427,6 +425,6 @@ const HOME_FAQ = [
   { q: "How long does implementation take?", a: "Most stores are live in days, not months. Start with Today and one workflow, then switch on the rest as you go." },
   { q: "Where is our data stored?", a: "In Australia. Each pharmacy's data is isolated. Nothing is shared between pharmacies or used to train shared AI models." },
   { q: "Which dispensing systems are supported?", a: "Live pipelines against Z Dispense and APSS today. Fred NXT, Minfos, and Dispense Works are in early access." },
-  { q: "Do you help us prepare for QSPP?", a: "Governance gives you the register, the audit calendar, and the readiness view. We don't accredit you. Your assessor does." },
-  { q: "Can we start with one module?", a: "Yes. Core is one price for the run-the-day set. Add Governance and add-ons when they earn their place." },
+  { q: "Do you help us prepare for QSPP?", a: "Business Optimiser gives you the register, the audit calendar, and the readiness view. We don't accredit you. Your assessor does." },
+  { q: "Can we start with one module?", a: "Yes. Core is one price for the run-the-day set. Add Business Optimiser and add-ons when they earn their place." },
 ];

@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+﻿import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   createRootRouteWithContext,
@@ -69,22 +69,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#10183f" },
-      { title: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
+      { title: "Chemist Care Tools â€” Run your pharmacy like the best in the business" },
       {
         name: "description",
         content:
-          "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies.",
+          "One staff portal for tasks, orders, packs, compliance, and stock. Developed by real community pharmacists in Sydney and Melbourne.",
       },
       { property: "og:site_name", content: "Chemist Care Tools" },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
+      { property: "og:title", content: "Chemist Care Tools â€” Run your pharmacy like the best in the business" },
       {
         property: "og:description",
-        content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies.",
+        content: "One staff portal for tasks, orders, packs, compliance, and stock. Developed by real community pharmacists in Sydney and Melbourne.",
       },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Chemist Care Tools — Run every pharmacy like your best pharmacy" },
-      { name: "twitter:description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Built by pharmacists running two Melbourne pharmacies." },
+      { name: "twitter:title", content: "Chemist Care Tools â€” Run your pharmacy like the best in the business" },
+      { name: "twitter:description", content: "One staff portal for tasks, orders, packs, compliance, and stock. Developed by real community pharmacists in Sydney and Melbourne." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/R6K3glyzDwgIwpIt8lj1BoPA0EM2/social-images/social-1784845977367-21f93649-074a-4469-bc6a-a1d05a6a0321.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/R6K3glyzDwgIwpIt8lj1BoPA0EM2/social-images/social-1784845977367-21f93649-074a-4469-bc6a-a1d05a6a0321.webp" },
     ],

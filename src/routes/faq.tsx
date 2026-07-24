@@ -84,7 +84,8 @@ const GROUPS: { name: string; items: { q: string; a: string }[] }[] = [
     name: "Pricing",
     items: [
       { q: "Is there a setup fee?", a: "No setup fee. No lock-in contract. Cancel anytime with 30 days notice." },
-      { q: "What is included in Governance?", a: "Everything in Core, plus Compliance & QSPP readiness. Recommended before October 2026." },
+      { q: "What is included in Business Optimiser?", a: "Everything in Core, plus Compliance & QSPP readiness. Recommended before October 2026." },
+      { q: "What is included in Elite?", a: "Everything in Business Optimiser, plus PBS intelligence, Expiries, and rented on-site hardware for AI analysis and optimisation. We install and manage the hardware for you." },
     ],
   },
   {
