@@ -1,6 +1,8 @@
 // Central marketing config for Chemist Care Tools.
 // Everything marketing-critical lives here.
 
+import heroVideoAsset from "@/assets/hero.mp4.asset.json";
+
 export const siteConfig = {
   brand: {
     wordmarkPrimary: "Chemist Care",
@@ -13,7 +15,7 @@ export const siteConfig = {
     location: "Made in Melbourne. Data hosted in Australia.",
   },
   hero: {
-    videoUrl: "/hero.mp4",
+    videoUrl: heroVideoAsset.url,
     posterUrl: "/hero-poster.jpg",
   },
   disclaimers: {
