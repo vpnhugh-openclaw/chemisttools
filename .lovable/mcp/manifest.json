@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "sdk_version": "0.24.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "chemist-care-tools-mcp",
+      "version": "0.1.0",
+      "title": "Chemist Care Tools"
+    },
+    "tools": [
+      {
+        "name": "list_modules",
+        "title": "List product modules",
+        "description": "List Chemist Care Tools product modules with name, slug, status, group, and short description.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "group": {
+              "description": "Optional module group filter (e.g. 'Run the day').",
+              "type": "string"
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_module",
+        "title": "Get module details",
+        "description": "Fetch full details for a Chemist Care Tools module by slug: features, FAQ, pricing note, and before/with comparisons.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "slug": {
+              "type": "string",
+              "minLength": 1,
+              "description": "The module slug, e.g. 'today' or 'compliance'."
+            }
+          },
+          "required": [
+            "slug"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_pricing",
+        "title": "Get pricing",
+        "description": "Return Chemist Care Tools plans, add-ons, and usage pricing (AUD, per store per month).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "submit_contact_lead",
+        "title": "Submit contact lead",
+        "description": "Submit a contact enquiry to Chemist Care Tools. Requires explicit consent from the person being contacted.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Full name of the person enquiring."
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$",
+              "description": "Contact email address."
+            },
+            "phone": {
+              "description": "Optional phone number.",
+              "type": "string"
+            },
+            "pharmacy_name": {
+              "description": "Optional pharmacy name.",
+              "type": "string"
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Message or enquiry details."
+            },
+            "consent": {
+              "type": "boolean",
+              "description": "Must be true — confirms the person consents to being contacted."
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "message",
+            "consent"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
