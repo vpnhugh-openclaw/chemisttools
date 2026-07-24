@@ -122,13 +122,14 @@ export function Hero() {
             "radial-gradient(90% 80% at 70% 15%, #1c2657 0%, var(--navy) 55%, var(--navy-900) 100%)",
         }}
       />
-      <div
-        className="aurora-blob z-0"
-        style={{ width: 640, height: 640, top: "-15%", right: "-8%", background: "rgba(192,57,43,0.20)" }}
-      />
-      <div
-        className="aurora-blob z-0"
-        style={{ width: 560, height: 560, bottom: "-20%", left: "-10%", background: "rgba(90,98,133,0.30)", animationDelay: "-8s" }}
+      <img
+        src={siteConfig.hero.posterUrl}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ transform: "scale(1.08)" }}
+        loading="eager"
+        fetchPriority="high"
       />
 
       {!reduced && (
