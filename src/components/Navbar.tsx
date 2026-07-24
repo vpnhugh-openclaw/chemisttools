@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { siteConfig } from "@/lib/siteConfig";
+import { ScrollProgress } from "./ScrollProgress";
 
 const CENTER_LINKS = [
   { to: "/product/today", label: "Product" },
@@ -35,6 +36,7 @@ export function Navbar({ overHero = false }: NavbarProps) {
 
   return (
     <>
+      <ScrollProgress />
       <nav
         className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 md:px-12 py-4 md:py-6 transition-all duration-300"
         style={{

@@ -9,11 +9,11 @@ export function Footer() {
           <div>
             <div className="text-white text-sm font-semibold mb-4">Product</div>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/product/today" className="hover:text-white transition-colors">Today</Link></li>
-              <li><Link to="/product/operations" className="hover:text-white transition-colors">Operations</Link></li>
-              <li><Link to="/product/knowledge" className="hover:text-white transition-colors">Knowledge & Ask</Link></li>
-              <li><Link to="/product/compliance" className="hover:text-white transition-colors">Compliance & QSPP</Link></li>
-              <li><Link to="/product/pbs-intelligence" className="hover:text-white transition-colors">PBS intelligence</Link></li>
+              <li><Link to="/product/$slug" params={{ slug: "today" }} className="hover:text-white transition-colors">Today</Link></li>
+              <li><Link to="/product/$slug" params={{ slug: "operations" }} className="hover:text-white transition-colors">Operations</Link></li>
+              <li><Link to="/product/$slug" params={{ slug: "knowledge" }} className="hover:text-white transition-colors">Knowledge & Ask</Link></li>
+              <li><Link to="/product/$slug" params={{ slug: "compliance" }} className="hover:text-white transition-colors">Compliance & QSPP</Link></li>
+              <li><Link to="/product/$slug" params={{ slug: "pbs-intelligence" }} className="hover:text-white transition-colors">PBS intelligence</Link></li>
               <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
             </ul>
           </div>

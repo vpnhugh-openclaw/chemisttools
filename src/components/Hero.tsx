@@ -19,12 +19,29 @@ const SCENES = [
   },
 ];
 
+// Headline split into words, each rising from behind a mask with a stagger.
+function KineticHeadline({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(" ").map((word, i) => (
+        <span key={`${text}-${i}`} className="word-mask">
+          <span className="word-rise" style={{ animationDelay: `${350 + i * 70}ms` }}>
+            {word}
+          </span>
+          {i < text.split(" ").length - 1 ? " " : ""}
+        </span>
+      ))}
+    </>
+  );
+}
+
 export function Hero() {
   const [scene, setScene] = useState(0);
   const [reduced, setReduced] = useState(false);
   const [paused, setPaused] = useState(false);
   const [fading, setFading] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -34,6 +51,28 @@ export function Hero() {
     m.addEventListener("change", listener);
     return () => m.removeEventListener("change", listener);
   }, []);
+
+  // Parallax: the video drifts slower than the page while the hero scrolls out.
+  useEffect(() => {
+    if (typeof window === "undefined" || reduced) return;
+    const video = videoRef.current;
+    if (!video) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = Math.min(window.scrollY, window.innerHeight);
+      video.style.transform = `translateY(${y * 0.28}px) scale(1.08)`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [reduced]);
 
   useEffect(() => {
     if (reduced || paused) return;
@@ -50,6 +89,16 @@ export function Hero() {
     }, 400);
   };
 
+  const goTo = (i: number) => {
+    if (i === scene) return;
+    setPaused(true);
+    setFading(true);
+    setTimeout(() => {
+      setScene(i);
+      setFading(false);
+    }, 400);
+  };
+
   const scrollToModules = () => {
     const el = document.getElementById("module-groups");
     el?.scrollIntoView({ behavior: "smooth" });
@@ -59,13 +108,15 @@ export function Hero() {
 
   return (
     <section
-      className="relative isolate overflow-hidden text-white"
+      ref={sectionRef}
+      className="relative isolate overflow-hidden text-white grain"
       style={{ minHeight: "100svh", background: "var(--navy)", display: "flex", flexDirection: "column" }}
     >
       {!reduced && (
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover z-0"
+          style={{ transform: "scale(1.08)", willChange: "transform" }}
           src={siteConfig.hero.videoUrl}
           poster={siteConfig.hero.posterUrl}
           autoPlay
@@ -76,8 +127,20 @@ export function Hero() {
         />
       )}
 
-      {/* Navy grade */}
-      <div className="absolute inset-0 z-[1]" style={{ background: "rgba(16, 24, 63, 0.55)" }} />
+      {/* Cinematic grade: vignette + bottom anchor instead of a flat wash */}
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(10,16,48,0.88) 0%, rgba(16,24,63,0.35) 45%, rgba(16,24,63,0.45) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          background: "radial-gradient(120% 90% at 50% 10%, transparent 55%, rgba(10,16,48,0.55) 100%)",
+        }}
+      />
       {/* Bottom blur overlay */}
       <div className="absolute inset-0 z-[2] pointer-events-none hero-bottom-blur" style={{ background: "rgba(16, 24, 63, 0.15)" }} />
 
@@ -91,15 +154,17 @@ export function Hero() {
             </div>
 
             <h1
-              className="animate-blur-fade-up text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white"
-              style={{ animationDelay: "400ms", letterSpacing: "-0.02em", maxWidth: "18ch" }}
+              key={scene}
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white"
+              style={{ letterSpacing: "-0.02em", maxWidth: "18ch" }}
             >
-              {current.headline}
+              {reduced ? current.headline : <KineticHeadline text={current.headline} />}
             </h1>
 
             <p
+              key={`sub-${scene}`}
               className="mt-5 animate-blur-fade-up text-base sm:text-lg md:text-xl max-w-2xl"
-              style={{ animationDelay: "500ms", color: "rgba(255,255,255,0.75)" }}
+              style={{ animationDelay: "700ms", color: "rgba(255,255,255,0.78)" }}
             >
               {current.subline}
             </p>
@@ -107,18 +172,36 @@ export function Hero() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 to="/book-walkthrough"
-                className="animate-blur-fade-up inline-flex items-center gap-2 rounded-full bg-white text-[var(--navy)] px-5 py-3 text-sm font-semibold hover:bg-white/90 transition-colors"
-                style={{ animationDelay: "600ms" }}
+                className="animate-blur-fade-up inline-flex items-center gap-2 rounded-full bg-white text-[var(--navy)] px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:bg-white/90 hover:shadow-[0_8px_30px_rgba(255,255,255,0.25)]"
+                style={{ animationDelay: "850ms" }}
               >
-                Book a walkthrough <ArrowRight size={16} strokeWidth={1.5} />
+                Book a walkthrough <ArrowRight size={16} strokeWidth={1.5} className="cta-arrow" />
               </Link>
               <button
                 onClick={scrollToModules}
-                className="liquid-glass animate-blur-fade-up rounded-full px-5 py-3 text-sm font-semibold"
-                style={{ animationDelay: "700ms" }}
+                className="liquid-glass animate-blur-fade-up rounded-full px-6 py-3.5 text-sm font-semibold"
+                style={{ animationDelay: "950ms" }}
               >
                 See the modules
               </button>
+            </div>
+
+            {/* Scene indicator dots */}
+            <div className="mt-8 flex items-center gap-2 animate-blur-fade-up" style={{ animationDelay: "1050ms" }}>
+              {SCENES.map((s, i) => (
+                <button
+                  key={s.headline}
+                  aria-label={`Scene ${i + 1}`}
+                  onClick={() => goTo(i)}
+                  onMouseLeave={() => setPaused(false)}
+                  className="rounded-full transition-all duration-500"
+                  style={{
+                    width: i === scene ? 28 : 8,
+                    height: 8,
+                    background: i === scene ? "#fff" : "rgba(255,255,255,0.35)",
+                  }}
+                />
+              ))}
             </div>
           </div>
 

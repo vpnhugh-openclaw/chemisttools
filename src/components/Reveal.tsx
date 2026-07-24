@@ -54,7 +54,7 @@ export function Reveal({ children, delay = 0, as = "div", className = "" }: Reve
   return (
     <Comp
       ref={ref as never}
-      className={`${play ? "animate-blur-fade-up" : "opacity-0"} ${className}`}
+      className={`${play ? "animate-blur-fade-up is-inview" : "opacity-0"} ${className}`}
       style={play ? { animationDelay: `${Math.min(delay, 480)}ms` } : undefined}
     >
       {children}

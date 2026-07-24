@@ -10,8 +10,17 @@ import { QueueAssembly } from "@/components/QueueAssembly";
 import { CountUp } from "@/components/CountUp";
 import { CTABand } from "@/components/CTABand";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Marquee } from "@/components/Marquee";
+import { SpotlightCard } from "@/components/SpotlightCard";
 import { MODULE_GROUPS, MODULES, modulesByGroup, siteConfig } from "@/lib/siteConfig";
 import { ArrowRight, Building2, Beaker } from "lucide-react";
+
+function spotlight(e: React.MouseEvent<HTMLElement>) {
+  const el = e.currentTarget;
+  const rect = el.getBoundingClientRect();
+  el.style.setProperty("--spot-x", `${e.clientX - rect.left}px`);
+  el.style.setProperty("--spot-y", `${e.clientY - rect.top}px`);
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,6 +58,23 @@ function Home() {
       <Navbar overHero />
       <Hero />
 
+      {/* Module ticker */}
+      <div className="border-b" style={{ borderColor: "var(--navy-100)", background: "var(--white)" }}>
+        <Marquee className="py-4">
+          {MODULES.map((m) => (
+            <span key={m.slug} className="inline-flex items-center shrink-0">
+              <span
+                className="text-sm font-semibold tracking-wide whitespace-nowrap"
+                style={{ color: "var(--navy-700)" }}
+              >
+                {m.name}
+              </span>
+              <span className="mx-6 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "var(--crimson)", opacity: 0.5 }} />
+            </span>
+          ))}
+        </Marquee>
+      </div>
+
       {/* Visibility problem + queue assembly */}
       <section className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-12 py-24">
         <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -61,7 +87,7 @@ function Home() {
             </Reveal>
             <Reveal delay={80}>
               <h2 style={{ fontSize: "clamp(28px, 3.6vw, 44px)" }}>
-                Pharmacy work is scattered. One queue puts it back in view.
+                Pharmacy work is scattered. <span className="accent-underline">One queue</span> puts it back in view.
               </h2>
             </Reveal>
             <div className="mt-6 space-y-4 text-[17px] text-[var(--navy-700)] prose-measure">
@@ -94,7 +120,7 @@ function Home() {
             </Reveal>
             <Reveal delay={80}>
               <h2 style={{ fontSize: "clamp(24px, 3vw, 36px)" }}>
-                Every module feeds one screen.
+                Every module feeds <span className="accent-underline">one screen</span>.
               </h2>
             </Reveal>
             <Reveal delay={160}>
@@ -103,8 +129,8 @@ function Home() {
               </p>
             </Reveal>
             <Reveal delay={240}>
-              <Link to="/product/today" className="inline-flex mt-6 items-center gap-1.5 text-sm font-semibold text-[var(--navy)]">
-                See the Today module <ArrowRight size={16} strokeWidth={1.5} />
+              <Link to="/product/$slug" params={{ slug: "today" }} className="inline-flex mt-6 items-center gap-1.5 text-sm font-semibold text-[var(--navy)]">
+                See the Today module <ArrowRight size={16} strokeWidth={1.5} className="cta-arrow" />
               </Link>
             </Reveal>
           </div>
@@ -141,7 +167,8 @@ function Home() {
                     <Link
                       to="/product/$slug"
                       params={{ slug: m.slug }}
-                      className="card-surface block p-5 h-full transition-colors hover:bg-[var(--navy-50)]"
+                      onMouseMove={spotlight}
+                      className="card-surface card-lift group block p-5 h-full"
                     >
                       <div className="flex items-start justify-between gap-3 mb-2">
                         <div style={{ fontFamily: "var(--font-serif)", fontSize: 20, color: "var(--navy)" }}>
@@ -151,7 +178,7 @@ function Home() {
                       </div>
                       <p className="text-sm text-[var(--navy-700)]">{m.description}</p>
                       <div className="mt-4 text-xs font-semibold text-[var(--navy)] inline-flex items-center gap-1">
-                        Explore <ArrowRight size={12} strokeWidth={1.5} />
+                        Explore <ArrowRight size={12} strokeWidth={1.5} className="cta-arrow" />
                       </div>
                     </Link>
                   </Reveal>
@@ -225,7 +252,7 @@ function Home() {
         </Reveal>
         <div className="grid md:grid-cols-2 gap-5 mt-10">
           <Reveal>
-            <div className="card-surface p-6 h-full">
+            <SpotlightCard className="p-6 md:p-8 h-full">
               <div className="flex items-center gap-2 mb-3 text-[var(--navy-500)] text-xs">
                 <Building2 size={14} strokeWidth={1.5} /> High-volume night chemist
               </div>
@@ -235,10 +262,10 @@ function Home() {
                 <li>Live stock pipeline against the dispensing system, reconciled to till figures.</li>
                 <li>Special orders, deliveries, and DAA planner all feed the same Today queue.</li>
               </ul>
-            </div>
+            </SpotlightCard>
           </Reveal>
           <Reveal delay={120}>
-            <div className="card-surface p-6 h-full">
+            <SpotlightCard className="p-6 md:p-8 h-full">
               <div className="flex items-center gap-2 mb-3 text-[var(--navy-500)] text-xs">
                 <Beaker size={14} strokeWidth={1.5} /> Specialist compounding
               </div>
@@ -248,28 +275,42 @@ function Home() {
                 <li>30 dosage forms, ingredient-level costing, calibrated make-times.</li>
                 <li>Quotes to dispatch tracked on one lifecycle, not three whiteboards.</li>
               </ul>
-            </div>
+            </SpotlightCard>
           </Reveal>
         </div>
       </section>
 
       {/* Trust strip */}
-      <section style={{ background: "var(--navy-50)" }}>
-        <div className="mx-auto max-w-[1200px] px-4 sm:px-6 md:px-12 py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="relative overflow-hidden grain" style={{ background: "var(--navy)" }}>
+        <div
+          className="aurora-blob"
+          style={{ width: 480, height: 480, top: "-60%", left: "12%", background: "rgba(192,57,43,0.22)" }}
+        />
+        <div
+          className="aurora-blob"
+          style={{ width: 420, height: 420, bottom: "-70%", right: "8%", background: "rgba(90,98,133,0.3)", animationDelay: "-7s" }}
+        />
+        <div className="relative z-10 mx-auto max-w-[1200px] px-4 sm:px-6 md:px-12 py-16 md:py-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { n: 16, s: "modules" },
-              { n: 2, s: "working pharmacies" },
-              { n: 18, s: "audited calculators" },
-              { n: 100, s: "% Australian-hosted", suffix: "%" },
-            ].map((t) => (
-              <Reveal key={t.s}>
+              { n: 16, s: "modules", suffix: "" },
+              { n: 2, s: "working pharmacies", suffix: "" },
+              { n: 18, s: "audited calculators", suffix: "" },
+              { n: 100, s: "Australian-hosted", suffix: "%" },
+            ].map((t, i) => (
+              <Reveal key={t.s} delay={i * 80}>
                 <div>
-                  <div style={{ fontFamily: "var(--font-serif)", fontSize: 44, color: "var(--navy)" }}>
-                    {t.suffix ? <CountUp to={t.n} /> : <CountUp to={t.n} />}
-                    {t.suffix && "%"}
+                  <div
+                    style={{
+                      fontFamily: "var(--font-serif)",
+                      fontSize: "clamp(44px, 5vw, 64px)",
+                      color: "#fff",
+                      lineHeight: 1,
+                    }}
+                  >
+                    <CountUp to={t.n} suffix={t.suffix} />
                   </div>
-                  <div className="mt-1 text-sm text-[var(--navy-500)]">{t.s.replace("%", "")}</div>
+                  <div className="mt-2 text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>{t.s}</div>
                 </div>
               </Reveal>
             ))}
@@ -286,28 +327,43 @@ function Home() {
           </h2>
         </Reveal>
         <div className="grid md:grid-cols-2 gap-5 mt-10">
-          {siteConfig.pricing.plans.map((p, i) => (
-            <Reveal key={p.id} delay={i * 80}>
-              <div className="card-surface p-6 h-full">
-                <div className="flex items-baseline justify-between mb-1">
-                  <h3 style={{ fontSize: 26 }}>{p.name}</h3>
-                  <div>
-                    <span style={{ fontFamily: "var(--font-serif)", fontSize: 28, color: "var(--navy)" }}>${p.price}</span>
-                    <span className="text-sm text-[var(--navy-500)]"> /store /month</span>
+          {siteConfig.pricing.plans.map((p, i) => {
+            const featured = p.id === "governance";
+            return (
+              <Reveal key={p.id} delay={i * 80}>
+                <div
+                  onMouseMove={spotlight}
+                  className="card-surface card-lift p-6 md:p-8 h-full relative overflow-hidden"
+                  style={featured ? { border: "1.5px solid var(--crimson)", boxShadow: "0 2px 4px rgba(192,57,43,0.06), 0 16px 40px rgba(192,57,43,0.10)" } : undefined}
+                >
+                  {featured && (
+                    <div
+                      className="absolute top-0 right-0 text-[11px] font-bold tracking-wide uppercase px-3 py-1.5 rounded-bl-xl text-white"
+                      style={{ background: "var(--crimson)" }}
+                    >
+                      Recommended
+                    </div>
+                  )}
+                  <div className="flex items-baseline justify-between mb-1 gap-3">
+                    <h3 style={{ fontSize: 26 }}>{p.name}</h3>
+                    <div>
+                      <span style={{ fontFamily: "var(--font-serif)", fontSize: 34, color: "var(--navy)" }}>${p.price}</span>
+                      <span className="text-sm text-[var(--navy-500)]"> /store /month</span>
+                    </div>
                   </div>
+                  <p className="text-sm text-[var(--navy-700)]">{p.tagline}</p>
+                  {featured && (
+                    <div className="inline-flex mt-3 text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: "rgba(199,138,26,0.10)", color: "var(--warning)" }}>
+                      QSPP lands 1 October 2026
+                    </div>
+                  )}
+                  <Link to="/pricing" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--navy)]">
+                    See what's included <ArrowRight size={16} strokeWidth={1.5} className="cta-arrow" />
+                  </Link>
                 </div>
-                <p className="text-sm text-[var(--navy-700)]">{p.tagline}</p>
-                {p.id === "governance" && (
-                  <div className="inline-flex mt-3 text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: "rgba(199,138,26,0.10)", color: "var(--warning)" }}>
-                    Recommended before October 2026
-                  </div>
-                )}
-                <Link to="/pricing" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--navy)]">
-                  See what's included <ArrowRight size={16} strokeWidth={1.5} />
-                </Link>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
         <Reveal delay={160}>
           <p className="mt-6 text-sm text-[var(--navy-500)]">
@@ -336,7 +392,7 @@ function Home() {
         </div>
         <Reveal delay={240}>
           <Link to="/faq" className="inline-flex mt-8 items-center gap-1.5 text-sm font-semibold text-[var(--navy)]">
-            All 20 questions <ArrowRight size={16} strokeWidth={1.5} />
+            All 20 questions <ArrowRight size={16} strokeWidth={1.5} className="cta-arrow" />
           </Link>
         </Reveal>
       </section>
