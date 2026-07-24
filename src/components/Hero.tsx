@@ -75,6 +75,40 @@ export function Hero() {
     };
   }, [reduced]);
 
+  // React's `muted` prop is not always reflected as an attribute, which can cause
+  // browsers to block autoplay. Force it via the DOM and retry play() on any event
+  // that signals readiness, plus on visibility/interaction as a fallback.
+  useEffect(() => {
+    if (reduced) return;
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("playsinline", "");
+
+    const tryPlay = () => {
+      const p = video.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+
+    tryPlay();
+    const events = ["loadedmetadata", "loadeddata", "canplay", "canplaythrough"];
+    events.forEach((e) => video.addEventListener(e, tryPlay));
+    const onVisible = () => { if (document.visibilityState === "visible") tryPlay(); };
+    document.addEventListener("visibilitychange", onVisible);
+    const onInteract = () => tryPlay();
+    window.addEventListener("pointerdown", onInteract, { once: true });
+    window.addEventListener("touchstart", onInteract, { once: true });
+
+    return () => {
+      events.forEach((e) => video.removeEventListener(e, tryPlay));
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("pointerdown", onInteract);
+      window.removeEventListener("touchstart", onInteract);
+    };
+  }, [reduced]);
+
   useEffect(() => {
     if (reduced || paused) return;
     const id = setInterval(() => cycle(1), 8000);
@@ -147,8 +181,9 @@ export function Hero() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           onCanPlay={() => setVideoReady(true)}
+          onLoadedData={() => setVideoReady(true)}
         />
       )}
 
